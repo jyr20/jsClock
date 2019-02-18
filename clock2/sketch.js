@@ -6,9 +6,9 @@ var angle = 0;
  var speed1 = 0.01;
  var speed2 = 0.03;
  var speed3 = 0.05;
- var offset1 = 0;
- var offset2 = 0;
- var offset3 = 0;
+ var offset1 = 4;
+ var offset2 = 100;
+ var offset3 = 200;
 
 function setup() {
   createCanvas(400, 400);
@@ -66,12 +66,31 @@ function setup() {
 
    push();
    translate(200,200);
-   rotate(180+hourAngle);
-   fractal((minuteAngle*(60/360)+30)*0.5,secondAngle,2,getCol(speed1,offset1), getCol(speed2,offset2), getCol(speed3,offset3))
-   speed1 = checkReverse(speed1);
-   speed2 = checkReverse(speed2);
-   speed3 = checkReverse(speed3);
+   rotate(hourAngle);
+   // fractal((minuteAngle*(60/360)+30)*0.5,secondAngle,2,getCol(speed1,offset1,False), getCol(speed2,offset2,False), getCol(speed3,offset3,False))
+   fractal((minuteAngle*(60/360)+35)*0.5,secondAngle,2,150,255,100)
+   // speed1 = checkReverse(speed1);
+   // speed2 = checkReverse(speed2);
+   // speed3 = checkReverse(speed3);
    pop();
+
+   push();
+   translate(200,200);
+   rotate(180+hourAngle);
+   strokeWeight(2);
+   stroke(150,255,100);
+   line(0,0,0,(minuteAngle*(1000/360)+30)*0.5);
+   translate(0,(minuteAngle*(100/360)+30)*0.5);
+   triangle(-2,0,2,0,0,4);
+   pop();
+
+   fill(255,100,150);
+   circle(200,200,8);
+   fill(150,100,255);
+   circle(200,200,4);
+
+   
+
 
 
    // push();
@@ -144,7 +163,7 @@ function getRandomInt(min, max) {
 
 function getCol(speed,offset,flip) {
   var num = Math.floor((speed*millis()+offset)%255);
-  if flip {
+  if (flip) {
     num = 255-num1;
   }
   return num;
